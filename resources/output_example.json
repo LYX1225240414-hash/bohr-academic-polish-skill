@@ -1,0 +1,24 @@
+{
+  "case_id": "示例标识，非真实案例",
+  "status": "success",
+  "polished_text": "[示例润色后文本，仅展示字段结构]",
+  "changes": [
+    {
+      "original": "[示例原文句子]",
+      "revised": "[示例改文句子]",
+      "type": "语法",
+      "reason": "示例：主谓一致修正",
+      "location": "摘要第1段第2句"
+    }
+  ],
+  "glossary": {
+    "terms": []
+  },
+  "verification": {
+    "hedging_preserved": "示例：通过",
+    "data_units_preserved": "示例：通过",
+    "citations_preserved": "示例：通过"
+  },
+  "uncertainties": [],
+  "change_log": []
+}
