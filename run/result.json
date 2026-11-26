@@ -1,0 +1,78 @@
+{
+  "case_id": "polish-trial-001",
+  "status": "success",
+  "polished_text": "Title: Oxygen vacancies in TiO₂ can greatly enhance photocatalytic activity.\n\nAbstract. In this study, we report a novel TiO₂ photocatalyst rich in oxygen vacancies. The presence of oxygen vacancies was found to significantly enhance visible-light absorption and improve the separation of photogenerated electron–hole pairs. The defect states were characterized by XPS, and the results show that the sample contains a substantial number of oxygen vacancies. Moreover, the photocatalytic activity was markedly increased, which is mainly because oxygen vacancies can act as active sites. In conclusion, our results indicate that oxygen vacancies are a key factor, and this catalyst can degrade a broad range of pollutants under visible light.",
+  "changes": [
+    {
+      "original": "The oxygen vacancy of TiO2 can greatly improves the photocatalytic performance.",
+      "revised": "Oxygen vacancies in TiO₂ can greatly enhance photocatalytic activity.",
+      "type": "语法 + 术语",
+      "reason": "主谓一致（vacancy can improves → vacancies can enhance）；介词 of → in 更符合领域表达；术语 performance→activity 统一；TiO2→TiO₂ 下标规范",
+      "location": "title"
+    },
+    {
+      "original": "It is proved that the existence of oxygen vacancy can significantly enhance the visible-light absorption and greatly improved the separation of photogenerated electron-hole pairs.",
+      "revised": "The presence of oxygen vacancies was found to significantly enhance visible-light absorption and improve the separation of photogenerated electron–hole pairs.",
+      "type": "语法 + 术语 + 语义",
+      "reason": "It is proved 改为 was found to，避免绝对化且语法正确；existence→presence；oxygen vacancy→oxygen vacancies 术语统一；can significantly enhance and greatly improved 时态不一致，统一为 was found to ... enhance and improve；去冗余 the；electron-hole→electron–hole 连接号规范；保留 significantly 限定强度",
+      "location": "abstract-s2"
+    },
+    {
+      "original": "The defect states were characterized by XPS, and the results show that the sample has a large amount of oxygen vacancy.",
+      "revised": "The defect states were characterized by XPS, and the results show that the sample contains a substantial number of oxygen vacancies.",
+      "type": "语法 + 术语",
+      "reason": "has a large amount of → contains a substantial number of（vacancy 可数，a large amount of 搭配错误）；oxygen vacancy→oxygen vacancies 术语统一",
+      "location": "abstract-s3"
+    },
+    {
+      "original": "Moreover, the photocatalytic activity was obviously increased, which is mainly due to the oxygen vacancy can act as active sites.",
+      "revised": "Moreover, the photocatalytic activity was markedly increased, which is mainly because oxygen vacancies can act as active sites.",
+      "type": "语法 + 术语",
+      "reason": "due to the ... can act 语法错误（due to 后接名词短语），改为 because 引导从句；obviously→markedly 语域更贴合学术；oxygen vacancy→oxygen vacancies 统一",
+      "location": "abstract-s4"
+    },
+    {
+      "original": "In conclusion, our work prove that oxygen vacancy is the key factor, and this catalyst can completely degrade all pollutants under visible light.",
+      "revised": "In conclusion, our results indicate that oxygen vacancies are a key factor, and this catalyst can degrade a broad range of pollutants under visible light.",
+      "type": "语法 + 术语 + 语义守恒（关键）",
+      "reason": "主谓一致 work prove→results indicate；oxygen vacancy is→oxygen vacancies are 统一；语义守恒：the key factor→a key factor、completely degrade all pollutants→degrade a broad range of pollutants，原文绝对化表述在材料未提供普适证据的前提下收敛为限定表述，避免过度宣称；indicate 替代 prove 保留科学审慎",
+      "location": "abstract-s5"
+    }
+  ],
+  "glossary": {
+    "terms": [
+      {"term": "oxygen vacancy / oxygen vacancies", "canonical": "oxygen vacancies", "positions": ["title", "abstract-s2", "abstract-s3", "abstract-s4", "abstract-s5"], "decision_basis": "全文统一复数"},
+      {"term": "TiO2", "canonical": "TiO₂", "positions": ["title", "abstract-s1"], "decision_basis": "下标规范"},
+      {"term": "photocatalytic performance", "canonical": "photocatalytic activity", "positions": ["title", "abstract-s4"], "decision_basis": "消除 performance/activity 漂移"},
+      {"term": "photogenerated electron-hole pairs", "canonical": "photogenerated electron–hole pairs", "positions": ["abstract-s2"], "decision_basis": "连接号规范"}
+    ]
+  },
+  "verification": {
+    "hard_errors_fixed": "通过：主谓一致3处、搭配错误2处、due to从句错误1处均已修正",
+    "term_consistency": "通过：oxygen vacancies / TiO₂ / photocatalytic activity 全篇一致，无跨句漂移",
+    "hedging_preserved": "通过：significantly / mainly / can 保留；绝对化表述（completely/all/key）按语义守恒原则收敛，记为语义类修改并说明理由",
+    "data_units_preserved": "通过：本文无数值数据；单位未涉及",
+    "citations_preserved": "通过：原文无引用编号与图表指向",
+    "no_new_facts": "通过：未新增材料外的事实、数字或引用",
+    "register": "通过：期刊论文语域，消除口语化与绝对化表述"
+  },
+  "uncertainties": [
+    {
+      "item": "原句 'this catalyst can completely degrade all pollutants under visible light' 为一概括性结论",
+      "reason": "材料摘要未提供污染物种类与普适性证据；绝对化表述可能过度宣称。已按语义守恒收敛为 'a broad range of pollutants'，建议作者按实际实验范围确认最终措辞。",
+      "location": "abstract-s5"
+    }
+  ],
+  "change_log": [
+    {
+      "issue": "初稿把 significantly 误判为可删除的冗余词",
+      "fix": "回读 checklist 后确认 significantly 属限定强度，必须保留，已恢复",
+      "location": "abstract-s2"
+    },
+    {
+      "issue": "初稿把 'the key factor' 直接保留未处理绝对化",
+      "fix": "按语义守恒原则改为 'a key factor' 并在 changes 中标注理由，避免宣称唯一性",
+      "location": "abstract-s5"
+    }
+  ]
+}
