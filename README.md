@@ -1,2 +1,28 @@
-# bohr-academic-polish-skill
-BUCT Bohrium Challenge - Academic Language Polishing Skill: minimal-edit, meaning-preserving academic rewriting
+# 学术语言润色 Skill：最小编辑、语义守恒、逐处可核
+
+玻尔科学空间高校挑战赛 · 北京化工大学分站赛 —— 学术语言润色赛题作品。
+
+## 简介
+
+面向学术稿件的英/中语言润色 Skill。聚焦四个问题：改得对（硬错误真改掉）、说得像（术语全篇统一、语域贴合）、没改坏（限定强度/数据/引用守恒）、讲得清（逐处原文-改文-类型-理由）。
+
+核心设计：最小编辑 + 语义守恒 + 全程可追溯。术语表是执行依据而非提示词装饰；限定强度、因果/相关、否定、数据单位、引用编号一律守恒；每处修改输出可复核记录。
+
+## 目录
+
+- SKILL.md：6 步工作流与输入输出约定
+- resources/checklist.md：自检清单
+- resources/style_guide.md：分文体语域要点
+- resources/output_example.json：输出结构示意（非答案）
+- examples/README.md：最小调用示例
+- run/polish_input.txt：真实试跑输入
+- run/glossary.json：真实试跑术语表
+- run/result.json：真实试跑结果（5 处修改 + 1 项不确定性 + 2 处回修）
+
+## 试跑说明
+
+run/ 下是对一段真实材料论文摘要中译英初稿的完整试跑，含典型硬错误、术语漂移与限定词问题。仅展示工作流，不是赛题正式案例或答案。
+
+## 授权
+
+仅供赛事评审与学习交流使用。
