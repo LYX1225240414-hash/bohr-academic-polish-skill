@@ -1,0 +1,5 @@
+[原文：某材料论文摘要的中译英初稿，含典型硬错误、术语漂移、限定词问题]
+
+Title: The oxygen vacancy of TiO2 can greatly improves the photocatalytic performance.
+
+Abstract. In this study, we report a novel TiO2 photocatalyst with rich oxygen vacancies. It is proved that the existence of oxygen vacancy can significantly enhance the visible-light absorption and greatly improved the separation of photogenerated electron-hole pairs. The defect states were characterized by XPS, and the results show that the sample has a large amount of oxygen vacancy. Moreover, the photocatalytic activity was obviously increased, which is mainly due to the oxygen vacancy can act as active sites. In conclusion, our work prove that oxygen vacancy is the key factor, and this catalyst can completely degrade all pollutants under visible light.
