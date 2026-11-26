@@ -1,0 +1,29 @@
+{
+  "case_id": "polish-trial-001",
+  "terms": [
+    {
+      "term": "oxygen vacancy / oxygen vacancies",
+      "canonical": "oxygen vacancies",
+      "positions": ["title", "abstract-s1", "abstract-s2", "abstract-s3", "abstract-s5"],
+      "decision_basis": "全文统一用复数 oxygen vacancies；首次出现不缩写；与催化领域惯例一致"
+    },
+    {
+      "term": "TiO2",
+      "canonical": "TiO₂",
+      "positions": ["title", "abstract-s1"],
+      "decision_basis": "化学式用下标 ₂；全文统一"
+    },
+    {
+      "term": "photocatalytic activity / photocatalytic performance",
+      "canonical": "photocatalytic activity",
+      "positions": ["title", "abstract-s4"],
+      "decision_basis": "同一概念统一为 photocatalytic activity，消除 performance/activity 漂移"
+    },
+    {
+      "term": "photogenerated electron-hole pairs",
+      "canonical": "photogenerated electron–hole pairs",
+      "positions": ["abstract-s2"],
+      "decision_basis": "连接号统一为 en dash，术语本身保留"
+    }
+  ]
+}
