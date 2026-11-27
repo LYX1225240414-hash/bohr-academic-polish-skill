@@ -1,11 +1,18 @@
 # 润色自检清单
 
-逐处核对，发现问题回到第 3 步修正并记入 change_log。
+先核对"运行契约"，再逐处核对内容；发现问题回到 SKILL.md 第 3 步修正并记入 change_log。
+
+## 运行契约（先做）
+- [ ] 已读取 `/input/case.json` 与 `/input/task.md` 并打开全部材料文件，未凭标签猜内容
+- [ ] `case_id` 来自输入；`output_contract` 的每个字段都出现在 `result.json` 中且名称一致
+- [ ] 已在 `/app/work` 保存中间稿，并写入 `/app/output/result.json`、`polished_text.md`、`changes.md`
+- [ ] 结果与稿件为真实运行结果，未包含预制答案、正式案例答案或虚构成绩
 
 ## 改得对（硬错误真改掉）
 - [ ] 主谓一致、时态、语态、冠词、介词、单复数错误已修正
 - [ ] 悬垂修饰、标点、长句切分已处理
 - [ ] 是"改错"而非"换一种说法掩盖错误"
+- [ ] `changes` 中每一处修改都能在 `polished_text` 中逐字找到
 
 ## 说得像（术语与语域）
 - [ ] 术语表每条 canonical 写法在全文完全一致
@@ -15,7 +22,7 @@
 - [ ] 无口语化、宣传化、绝对化表述与人称误用
 - [ ] 无中式英语、直译腔、冗余名词化、逻辑连接词滥用
 
-## 没改坏（语义守恒）
+## 没改坏（语义守恒，逐项对照不变量清单）
 - [ ] 限定强度（only/partially/significantly/may/can/主要/部分）逐处保留
 - [ ] 否定范围未被改变
 - [ ] 因果与相关性未被互换
@@ -23,10 +30,11 @@
 - [ ] 数据、单位、有效数字原样保留
 - [ ] 引用编号、图表指向原样保留
 - [ ] 未新增材料外的任何事实、数字或引用
+- [ ] 上述每一项在 `verification` 中都有 `result` 和具体 `evidence`
 
 ## 讲得清（可核验）
 - [ ] 每处修改都有 original / revised / type / reason / location
-- [ ] polished_text 与原文段落结构一致
-- [ ] 需人工确认、材料冲突、无法判断处写入 uncertainties
-- [ ] verification 逐项给出结论
-- [ ] status 与实际完成情况一致
+- [ ] `polished_text` 段落数与原文一致，`scope` 覆盖任务要求的全部段落
+- [ ] 需人工确认、材料冲突、无法判断处写入 `uncertainties`
+- [ ] `status` 与实际完成情况一致；partial 写明未完成范围与人工接管点
+- [ ] `change_log` 记录了自检发现的问题与回修；`result.json` 可被 JSON 解析
