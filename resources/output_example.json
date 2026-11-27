@@ -1,7 +1,8 @@
 {
   "case_id": "示例标识，非真实案例",
   "status": "success",
-  "polished_text": "[示例润色后文本，仅展示字段结构]",
+  "scope": "[示例：摘要与第1节，共2段，仅展示字段结构]",
+  "polished_text": "[示例润色后完整文本，仅展示字段结构]",
   "changes": [
     {
       "original": "[示例原文句子]",
@@ -11,13 +12,23 @@
       "location": "摘要第1段第2句"
     }
   ],
-  "glossary": {
-    "terms": []
-  },
+  "glossary": [
+    {
+      "term": "[示例原文术语]",
+      "canonical": "[示例统一写法]",
+      "positions": ["摘要第1段"],
+      "decision_basis": "示例：按领域惯例选定"
+    }
+  ],
   "verification": {
-    "hedging_preserved": "示例：通过",
-    "data_units_preserved": "示例：通过",
-    "citations_preserved": "示例：通过"
+    "hedging_preserved": {"result": "pass", "evidence": "[示例：may/can 原文与改文片段]"},
+    "negation_preserved": {"result": "pass", "evidence": "[示例片段]"},
+    "causality_preserved": {"result": "pass", "evidence": "[示例片段]"},
+    "data_units_preserved": {"result": "pass", "evidence": "[示例片段]"},
+    "citations_preserved": {"result": "pass", "evidence": "[示例片段]"},
+    "figures_tables_preserved": {"result": "na", "evidence": "[示例：本案无图表]"},
+    "glossary_consistent": {"result": "pass", "evidence": "[示例片段]"},
+    "no_new_facts": {"result": "pass", "evidence": "[示例：新增字段均为语言修改]"}
   },
   "uncertainties": [],
   "change_log": []
