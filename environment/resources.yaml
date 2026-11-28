@@ -1,5 +1,5 @@
 name: academic-polish-faithful
-version: 1.1.0
+version: 1.2.0
 entrypoint: ../SKILL.md
 bundle_root: ..
 description: >
@@ -60,3 +60,6 @@ runtime:
     脚本只读原稿、改稿与术语表，不改动输入。检查项按"必须改/需确认"分级：
     语义守恒与数据保真类计数应为 0；over_edit/heavy_edit 与 suspected 类只提示，
     需人工判断后再动稿，避免脚本把专业表述当成需要替换的措辞。
+
+changelog:
+  - "1.2.0: 切句支持中文句号（无空格可切）与 Fig. 3. / et al. 等缩写保护，修复整篇中文被当成一句；--out 兼容目录或文件名。"
