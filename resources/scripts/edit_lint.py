@@ -30,11 +30,29 @@ from collections import Counter
 from difflib import SequenceMatcher
 from pathlib import Path
 
+
+def _as_outfile(p, default_name):
+    """--out 兼容层：传目录则写入目录下 default_name，传文件名则直接写该文件。"""
+    path = Path(p)
+    if path.is_dir() or not path.suffix:
+        path = path / default_name
+    path.parent.mkdir(parents=True, exist_ok=True)
+    return path
+
+
+def _as_outdir(p):
+    """--out 兼容层：传的是文件名时取其父目录，避免把文件路径当目录用而崩溃。"""
+    path = Path(p)
+    if path.suffix.lower() in (".json", ".md", ".txt", ".yaml", ".yml", ".csv", ".tex", ".bib"):
+        path = path.parent if str(path.parent) not in ("", ".") else Path(".")
+    path.mkdir(parents=True, exist_ok=True)
+    return path
+
 # ---------- 切句 ----------
 
 ABBREV = ("et al", "e.g", "i.e", "Fig", "Figs", "Tab", "Ref", "Refs", "Eq", "Eqs",
           "vs", "cf", "approx", "resp", "Suppl", "Sec", "No", "Dr", "Prof", "St")
-SENT_END = re.compile(r"(?<=[.!?。！？；;])\s+")
+SENT_END = re.compile(r"(?<=[。！？；])|(?<=[.!?;])(?=\s)")
 
 
 def cjk_ratio(s):
@@ -71,7 +89,10 @@ def split_sentences(text):
         words = tail.split()
         last1 = re.sub(r"^[^\w]+", "", words[-1]).rstrip(".") if words else ""
         last2 = re.sub(r"^[^\w]+", "", " ".join(words[-2:])).rstrip(".") if len(words) >= 2 else ""
-        if last1 in ABBREV or last2 in ABBREV or len(seg) <= 2:
+        # 注意：这里判断的是「累积段」buf 的长度，不是刚拼进来的片段 seg 的长度。
+        # 句子以图表编号结尾（"... as reported in Fig. 3."）时 seg 恰为 "3."，
+        # 若按 seg 长度跳过就永远切不开，会和下一句粘成一句。
+        if last1 in ABBREV or last2 in ABBREV or len(buf) <= 2:
             continue
         out.append(buf)
         buf = ""
@@ -210,8 +231,8 @@ def cmd_split(args):
         print(json.dumps({"ok": False, "error": "文本为空或路径不存在"}, ensure_ascii=False))
         return 1
     items = [{"location": loc, "sentence": s} for loc, s in numbered_sentences(text)]
-    Path(args.out).mkdir(parents=True, exist_ok=True)
-    p = Path(args.out) / "sentences.json"
+    _d = _as_outdir(args.out)
+    p = _d / "sentences.json"
     p.write_text(json.dumps({"ok": True, "count": len(items), "sentences": items},
                             ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps({"ok": True, "sentences": len(items),
@@ -298,8 +319,8 @@ def cmd_terms(args):
         "abbrev_undefined_count": sum(1 for a in abbrevs if not a["has_definition_nearby"]),
         "term_candidates": [{"term": t, "count": c} for t, c in cands.most_common(120)],
     }
-    Path(args.out).mkdir(parents=True, exist_ok=True)
-    p = Path(args.out) / "terms_report.json"
+    _d = _as_outdir(args.out)
+    p = _d / "terms_report.json"
     p.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps({"ok": True, "case_drift_count": out["case_drift_count"],
                       "abbrev_undefined_count": out["abbrev_undefined_count"],
@@ -636,7 +657,7 @@ def cmd_lint(args):
         },
     }
 
-    outdir = Path(args.out)
+    outdir = _as_outdir(args.out)
     outdir.mkdir(parents=True, exist_ok=True)
     (outdir / "edit_report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     write_md(report, outdir / "edit_report.md")
