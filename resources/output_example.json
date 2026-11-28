@@ -1,35 +1,75 @@
 {
   "case_id": "示例标识，非真实案例",
+  "_note": "本文件仅为字段结构示意，不含任何真实稿件内容、真实案例结果或评测成绩。字段规范见 resources/field_dict.md。",
   "status": "success",
   "scope": "[示例：摘要与第1节，共2段，仅展示字段结构]",
-  "polished_text": "[示例润色后完整文本，仅展示字段结构]",
+  "polished_text": "[示例润色后完整文本，段落结构与原稿一致；真实运行须为完整稿件，不是建议]",
   "changes": [
+    {
+      "original": "[示例原文句子，须能在原稿逐字搜到]",
+      "revised": "[示例改文句子，须能在改稿逐字搜到]",
+      "type": "语法",
+      "reason": "示例：主谓一致修正（results shows → results show）",
+      "location": "p1/s2"
+    },
     {
       "original": "[示例原文句子]",
       "revised": "[示例改文句子]",
-      "type": "语法",
-      "reason": "示例：主谓一致修正",
-      "location": "摘要第1段第2句"
+      "type": "术语",
+      "reason": "示例：统一为术语表 canonical 写法（Xrd → XRD）",
+      "location": "p3/s1"
     }
   ],
   "glossary": [
     {
       "term": "[示例原文术语]",
       "canonical": "[示例统一写法]",
-      "positions": ["摘要第1段"],
-      "decision_basis": "示例：按领域惯例选定"
+      "variants": ["[示例：不该再出现的写法]"],
+      "positions": ["p1/s2", "p3/s1"],
+      "decision_basis": "示例：按领域惯例选定，全篇统一"
     }
   ],
   "verification": {
-    "hedging_preserved": {"result": "pass", "evidence": "[示例：may/can 原文与改文片段]"},
-    "negation_preserved": {"result": "pass", "evidence": "[示例片段]"},
-    "causality_preserved": {"result": "pass", "evidence": "[示例片段]"},
-    "data_units_preserved": {"result": "pass", "evidence": "[示例片段]"},
-    "citations_preserved": {"result": "pass", "evidence": "[示例片段]"},
-    "figures_tables_preserved": {"result": "na", "evidence": "[示例：本案无图表]"},
-    "glossary_consistent": {"result": "pass", "evidence": "[示例片段]"},
-    "no_new_facts": {"result": "pass", "evidence": "[示例：新增字段均为语言修改]"}
+    "semantic_preservation": {"result": "pass", "evidence": "示例：限定漂移 0（升级 0）、强度词丢失 0、否定变化 0、整句增删 0"},
+    "data_units_citations": {"result": "pass", "evidence": "示例：数字 0、单位 0、引用 0、图表指向 0"},
+    "minimal_edit": {"result": "pass", "evidence": "示例：改动句 0 / 对齐句 0（编辑率 0）；疑似整句重写 0；改动偏大 0"},
+    "traceability": {"result": "pass", "evidence": "示例：修改记录 0 条；未记录改动 0；记录对不上原文 0；记录与改文不符 0"},
+    "register_and_errors": {"result": "pass", "evidence": "示例：语域问题 0（口语 0、宣传 0、绝对 0）；硬错误 0"},
+    "glossary_consistent": {"result": "pass", "evidence": "示例：术语 0 条；未落实 0；写法不一致 0；跨语言跳过 0"},
+    "causality_preserved": {"result": "na", "evidence": "示例：因果/指代抽查 0 处通过 0 处——脚本测不出，真实运行须人工填抽查数与片段"},
+    "no_new_facts": {"result": "pass", "evidence": "示例：新增句 0；人工核出的事实/数字增补 0"}
   },
-  "uncertainties": [],
-  "change_log": []
+  "edit_report": {
+    "sentences": {"source": 0, "revised": 0, "aligned": 0, "source_only": 0, "revised_only": 0,
+                  "changed": 0, "edit_rate": 0},
+    "faithfulness": {"hedge_removed_count": 0, "hedge_upgraded_count": 0, "hedge_added_count": 0,
+                     "intensity_dropped_count": 0, "sentence_dropped_count": 0, "sentence_added_count": 0,
+                     "negation_changed_count": 0, "number_changed_count": 0, "unit_changed_count": 0,
+                     "citation_changed_count": 0, "figref_changed_count": 0},
+    "changes_coverage": {"records": 0, "uncovered_count": 0, "unmatched_count": 0,
+                         "without_effect_count": 0, "incomplete_count": 0},
+    "register_count": 0,
+    "hard_error_count": 0,
+    "_source": "示例：真实运行时必须原样转述 /app/output/edit_report.json，不得另算一套"
+  },
+  "gain_record": {
+    "conditions": {"same_source": true, "same_glossary": true, "same_style": true, "same_budget": true},
+    "mode": "B_single_run_two_drafts",
+    "baseline": {"draft": "/app/work/draft_blind.md", "note": "示例：直接通读改一遍的版本"},
+    "with_skill": {"draft": "/app/output/polished_text.md", "note": "示例：按本工作流产出的定稿"},
+    "delta_note": "示例：限定漂移与未记录改动数的变化须由两次 lint 的真实计数填入；测不出写 na",
+    "verifiable_artifacts": ["/app/output/edit_report.json", "/app/output/edit_report.md"]
+  },
+  "uncertainties": [
+    {
+      "item": "示例：某处 correlative 表述是否应改为 causal",
+      "reason": "原稿只说 correlate with，未提供机制证据；改成 cause 会改变作者主张",
+      "location": "p4/s2",
+      "handover": "需作者确认是否有机制证据支撑因果表述"
+    }
+  ],
+  "change_log": [
+    {"problem": "示例：自检发现一处 may 被改成 is", "fix": "改回 may，并补一条 changes 记录",
+     "location": "p2/s3", "round": 1}
+  ]
 }
