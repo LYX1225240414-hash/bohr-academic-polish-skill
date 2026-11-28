@@ -165,7 +165,7 @@ python3 "$L" lint --source /app/work/source.txt \
 
 ## 资源
 
-- `resources/scripts/edit_lint.py`：**执行内核**。`split` 句级切分并给 `p<段>/s<句>` 定位、`terms` 抽术语并检大小写/连字符漂移与缩写首次定义、`lint` 做句级对齐后的六类核验（语义守恒 / 数据保真 / 术语 / 语域与硬错误 / 最小编辑 / 修改清单覆盖）、`report` 由 json 重出 md。切句同时支持英文句点与中文句号（中文无空格也能切开），`Fig. 3.`、`et al.` 这类缩写不会被误切。`--out` 可传目录（写入约定文件名）或直接传文件名，两种写法都不会报错。纯标准库（`argparse`/`re`/`json`/`difflib`/`collections`/`pathlib`），无第三方依赖，可完全离线运行。
+- `resources/scripts/edit_lint.py`：**执行内核**。`split` 句级切分并给 `p<段>/s<句>` 定位、`terms` 抽术语并检大小写/连字符漂移与缩写首次定义、`lint` 做句级对齐后的六类核验（语义守恒 / 数据保真 / 术语 / 语域与硬错误 / 最小编辑 / 修改清单覆盖）、`report` 由 json 重出 md。切句按主语种自动选口径：英文稿沿用经真实案例验证的 v1.1 句点+空白口径（`Fig. 3.`、`et al.` 这类缩写受保护，不因升级脚本改变句级对齐）；中文稿启用中文标点切分，解决中文句号后无空格导致整篇并成一句、核验全线失效的问题。先跑 `split` 看清 `count`：若中文稿只有 1 句，说明语种判断或输入编码有误，先修输入再核验。`--out` 可传目录（写入约定文件名）或直接传文件名，两种写法都不会报错。纯标准库（`argparse`/`re`/`json`/`difflib`/`collections`/`pathlib`），无第三方依赖，可完全离线运行。
 - `resources/checklist.md`：带计数口径的自检清单，对应 `verification` 六项。
 - `resources/style_guide.md`：分文体语域要点与通用红线（含脚本可检的语域词表）。
 - `resources/gain_protocol.md`：使用增益对照协议与 `gain_record` 记录格式。
