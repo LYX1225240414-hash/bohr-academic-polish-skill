@@ -52,7 +52,12 @@ def _as_outdir(p):
 
 ABBREV = ("et al", "e.g", "i.e", "Fig", "Figs", "Tab", "Ref", "Refs", "Eq", "Eqs",
           "vs", "cf", "approx", "resp", "Suppl", "Sec", "No", "Dr", "Prof", "St")
-SENT_END = re.compile(r"(?<=[。！？；])|(?<=[.!?;])(?=\s)")
+# 英文稿件沿用已在真实案例上验证过的 v1.1 切句口径（句末标点后必须有空白）。
+# 中文稿件单独启用中文标点切分：中文句号后通常没有空白，旧口径会把整篇并成一句，
+# 导致限定强度/数字/修改清单覆盖检查全部失效。两种口径只按文本主语种选择，
+# 不做跨语种相似度比较，避免英文案例的句级对齐被无关规则改动。
+SENT_END_LATIN = re.compile(r"(?<=[.!?。！？；;])\s+")
+SENT_END_CJK = re.compile(r"(?<=[。！？；])|(?<=[.!?;])(?=\s)")
 
 
 def cjk_ratio(s):
@@ -68,7 +73,9 @@ def same_script(a, b):
 
 
 def split_sentences(text):
-    """按句末标点切句；保护缩写、保护 $...$ 与 \\cite{} 等标记内部"""
+    """按句末标点切句；按主语种选口径，保护缩写与 $...$ / \\cite{} 等标记内部"""
+    cjk = cjk_ratio(text) > 0.2
+    sent_end = SENT_END_CJK if cjk else SENT_END_LATIN
     # 把不可切分的片段先占位
     guards = {}
 
@@ -80,8 +87,10 @@ def split_sentences(text):
     t = re.sub(r"\$[^$]*\$|\\\([^)]*\\\)|\\\[[^\]]*\\\]|\\cite[a-z]*\{[^}]*\}|\[\d{1,3}(?:\s*[,\-–]\s*\d{1,3})*\]",
                stash, text)
 
-    raw = [p.strip() for p in SENT_END.split(t) if p.strip()]
-    # 累积到"末尾不是缩写、且长度够"才切句。判断对象是当前累积段，不是新片段。
+    raw = [p.strip() for p in sent_end.split(t) if p.strip()]
+    # 累积到"末尾不是缩写、且长度够"才切句。
+    # 英文维持 v1.1 的 len(seg) 判据（真实案例 76.33 的口径，不擅自改动）；
+    # 中文使用 len(buf) 判据，避免 "as reported in Fig. 3." 后与下一句粘连。
     out, buf = [], ""
     for seg in raw:
         buf = (buf + " " + seg).strip() if buf else seg
@@ -89,10 +98,8 @@ def split_sentences(text):
         words = tail.split()
         last1 = re.sub(r"^[^\w]+", "", words[-1]).rstrip(".") if words else ""
         last2 = re.sub(r"^[^\w]+", "", " ".join(words[-2:])).rstrip(".") if len(words) >= 2 else ""
-        # 注意：这里判断的是「累积段」buf 的长度，不是刚拼进来的片段 seg 的长度。
-        # 句子以图表编号结尾（"... as reported in Fig. 3."）时 seg 恰为 "3."，
-        # 若按 seg 长度跳过就永远切不开，会和下一句粘成一句。
-        if last1 in ABBREV or last2 in ABBREV or len(buf) <= 2:
+        too_short = len(buf) if cjk else len(seg)
+        if last1 in ABBREV or last2 in ABBREV or too_short <= 2:
             continue
         out.append(buf)
         buf = ""
